@@ -3,29 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Prediction</title>
-    <link rel="stylesheet" href="styles.css">  <!-- Optional CSS file -->
+    <title>Diabetes prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=1">  <!-- Optional CSS file -->
 </head>
 <body>
     <div class="container">
-        <h2>Diabetes Prediction Form</h2>
-        <form action="/" method="POST">
+        <h2>Diabetes prediction Form</h2>
+        <form action="/predict_diabetes" method="POST">
             <div class="form-group">
                 <label for="age">Age:</label>
                 <input type="number" id="age" name="age" required min="1" max="110"/>
             </div>
             <div class="form-group">
-                <label for="gender">Gender (0 for Male, 1 for Female)</label>
-                <input type="number" id="gender" name="gender" required min="0" max="1"/>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="hypertension">Hypertension (0 for No, 1 for Yes)</label>
-                <input type="number" id="hypertension" name="hypertension" required min="0" max="1" />
+                <label for="hypertension">Hypertension:</label>
+                <select id="hypertension" name="hypertension" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="heart_disease">Heart Disease (0 for No, 1 for Yes)</label>
-                <input type="number" id="heart_disease" name="heart_disease" required min="0" max="1" />
+                <label for="heart_disease">Heart Disease:</label>
+                <select id="heart_disease" name="heart_disease" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
             </div>
+            <div class="form-group">
+                <label for="smoking_history">Smoking History:</label>
+                <select id="smoking_history" name="smoking_history" required>
+                    <option value="never">Never</option>
+                    <option value="past">Past</option>
+                    <option value="current">Current</option>
+                    <option value="No Info">No Info</option>
+                </select>
             <div class="form-group">
                 <label for="bmi">BMI:</label>
                 <input type="number" id="bmi" name="bmi" required min="7" max="85" step="0.01"/>
@@ -40,6 +57,13 @@
             </div>
             <button type="submit">Predict</button>
         </form>
+
+        {% if prediction_text %}
+        <div class="result">
+            <h3>{{ prediction_text }}</h3>
+        </div>
+        {% endif %}
+    
     </div>
 </body>
 </html>
