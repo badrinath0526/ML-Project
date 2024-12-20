@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB, BernoulliNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report,roc_auc_score,roc_curve
+from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score
 
 import joblib
 
@@ -63,7 +63,16 @@ def grid_search_tuning(pipeline, X_train, y_train):
     kfold = StratifiedKFold(shuffle=True, n_splits=2, random_state=22)
     grid_search = GridSearchCV(pipeline, param_grid, scoring='precision',cv=kfold, verbose=1, n_jobs=-1)
     grid_search.fit(X_train, y_train)
+    smote = grid_search.best_estimator_.named_steps['smote']
+    X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
+    print(f"Shape of dataset after oversampling: {X_resampled.shape}, {y_resampled.shape}")
     return grid_search
+
+def calculate_training_accuracy(grid_search, X_train, y_train):
+    best_model = grid_search.best_estimator_
+    y_train_pred = best_model.predict(X_train)
+    train_accuracy = accuracy_score(y_train, y_train_pred)
+    return train_accuracy
 
 def evaluate_model(grid_search, X_test, y_test, threshold=0.25):
     best_model = grid_search.best_estimator_
@@ -90,7 +99,7 @@ def get_feature_importance(grid_search):
 #     plt.show()
 def save_model(grid_search):
     # Save the best model to a file using joblib
-    joblib.dump(grid_search.best_estimator_, 'model.pkl')
+    joblib.dump(grid_search.best_estimator_, 'model1.pkl')
     print("Model saved as model.pkl")
 # def evaluate_roc_auc(model, X_test, y_test):
     

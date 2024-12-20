@@ -54,6 +54,12 @@ def plot_boxplot(df):
     sns.boxplot(data=df)
     plt.title('Boxplot of Features in Full Dataset')
     plt.show()
+
+def plot_pairplot(df,target_column='diabetes'):
+    sns.pairplot(df,hue=target_column,markers=["o","s"],palette="coolwarm")
+    plt.suptitle("Pairplot of features colored by diabetes status",y=1.02,fontsize=16)
+    plt.show()
+
     
 # def calculate_auc_roc(y_true, y_pred_proba):
 #     auc = roc_auc_score(y_true, y_pred_proba[:, 1])  # For binary classification, use the probabilities of class 1

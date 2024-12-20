@@ -4,7 +4,7 @@ import numpy as np
 
 
 app=Flask(__name__)
-model=joblib.load("model.pkl")
+model=joblib.load("model1.pkl")
 le_gender=joblib.load("le_gender.pkl")
 le_smoking_history=joblib.load("le_smoking_history.pkl")
 

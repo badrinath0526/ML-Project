@@ -7,22 +7,26 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f4f4f9;
-    /* background-image:; */
 }
 
+/* Container Styling */
 .container {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 100%;
+    max-width: 400px; /* Ensures it doesn't exceed on larger screens */
+    margin: 10px;
 }
 
 h2 {
     text-align: center;
     color: #333;
+    margin-bottom: 20px;
 }
 
+/* Form Group Styling */
 .form-group {
     margin-bottom: 15px;
 }
@@ -34,14 +38,16 @@ label {
     color: #333;
 }
 
-input {
+input,
+select {
     width: 100%;
-    padding: 8px;
-    margin: 0;
+    padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
+/* Button Styling */
 button {
     width: 100%;
     padding: 10px;
@@ -55,4 +61,51 @@ button {
 
 button:hover {
     background-color: #218838;
+}
+
+/* Result Styling */
+.result {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e6ffed;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+}
+
+.result h3 {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        width: 90%;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 18px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    input,
+    select {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
