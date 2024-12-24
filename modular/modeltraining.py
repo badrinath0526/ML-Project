@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score
-
+import matplotlib.pyplot as plt
 import joblib
 
 def build_pipeline():
@@ -20,12 +20,12 @@ def build_pipeline():
         # ('model', LogisticRegression(random_state=22))  # Logistic Regression
         # ('model', DecisionTreeClassifier(random_state=22))  # Decision Tree
         # ('model', KNeighborsClassifier())  # K-Nearest Neighbors
-        # ('model', SVC(probability=True, random_state=22))  # Support Vector Machine
+        # ('model', SVC(random_state=22))  # Support Vector Machine
         # ('model', GaussianNB())  # Gaussian Naive Bayes
-        # ('model', BernoulliNB())  # Bernoulli Naive Bayes
     ])
 
 def grid_search_tuning(pipeline, X_train, y_train):
+    #Random forest
     param_grid = {
         'model__n_estimators': [50, 100, 200],
         'model__max_depth': [None, 10, 20, 30],
@@ -55,10 +55,15 @@ def grid_search_tuning(pipeline, X_train, y_train):
 
     # Support Vector Machine
     # param_grid = {
-    #     'model__C': [0.1, 1, 10],  # Regularization parameter
-    #     'model__kernel': ['linear', 'rbf', 'poly'],  # Different kernel types
-    #     'model__gamma': ['scale', 'auto'],  # Gamma values
+    #     'model__C': [10,100],  # Regularization parameter
+    #     'model__kernel': ['rbf'],  # Different kernel types
+    #     'model__gamma': ['scale'],  # Gamma values
     # }
+    #Guassian Naive Bayes
+#     param_grid = {
+#     'model__var_smoothing': [1e-9, 1e-8, 1e-7, 1e-6],
+#     'model__priors': [None, [0.5, 0.5]],
+# }
 
     kfold = StratifiedKFold(shuffle=True, n_splits=2, random_state=22)
     grid_search = GridSearchCV(pipeline, param_grid, scoring='precision',cv=kfold, verbose=1, n_jobs=-1)
@@ -84,40 +89,56 @@ def evaluate_model(grid_search, X_test, y_test, threshold=0.25):
     print(f"Best cross-validation precision score: {grid_search.best_score_:.4f}")
     print(report_best)
 
-def get_feature_importance(grid_search):
-    best_model = grid_search.best_estimator_
+# def get_feature_importance(grid_search):
+#     best_model = grid_search.best_estimator_
     
-    # Check if RandomForestClassifier is the model
-    if isinstance(best_model.named_steps['model'], RandomForestClassifier):
-        feature_importance = best_model.named_steps['model'].feature_importances_
-        print("Feature Importance Scores:")
-        for idx, score in enumerate(feature_importance):
-            print(f"Feature {idx + 1}: {score:.4f}")
-    else:
-        print("Model is not Random Forest. Feature importance is not available.")
+#     # Check if RandomForestClassifier is the model
+#     if isinstance(best_model.named_steps['model'], RandomForestClassifier):
+#         feature_importance = best_model.named_steps['model'].feature_importances_
+#         print("Feature Importance Scores:")
+#         for idx, score in enumerate(feature_importance):
+#             print(f"Feature {idx + 1}: {score:.4f}")
+#     else:
+#         print("Model is not Random Forest. Feature importance is not available.")
 
 #     plt.show()
 def save_model(grid_search):
     # Save the best model to a file using joblib
     joblib.dump(grid_search.best_estimator_, 'model1.pkl')
     print("Model saved as model.pkl")
-# def evaluate_roc_auc(model, X_test, y_test):
+
+# from sklearn.feature_selection import RFE
+
+# def perform_rfe(X_train, y_train, estimator=None):
+#     if estimator is None:
+#         estimator = RandomForestClassifier(random_state=22)  # You can use any estimator here
     
-#     # Predict probabilities
-#     y_prob = model.predict_proba(X_test)[:, 1]
+#     rfe = RFE(estimator, n_features_to_select=4)  # Select top 5 features
+#     rfe.fit(X_train, y_train)
+    
+#     selected_features = X_train.columns[rfe.support_]
+#     print("Selected Features by RFE:")
+#     print(selected_features)   
 
-#     # Calculate ROC AUC score
-#     roc_auc = roc_auc_score(y_test, y_prob)
-#     print(f"ROC AUC Score: {roc_auc:.4f}")
 
-#     # Calculate ROC curve
-#     fpr, tpr, _ = roc_curve(y_test, y_prob)
+def evaluate_roc_auc(model, X_test, y_test):
+    
+    # Predict probabilities
+    y_prob = model.predict_proba(X_test)[:, 1]
 
-#     # Plot ROC curve
-#     plt.figure(figsize=(8, 6))
-#     plt.plot(fpr, tpr, color='b', label=f'ROC curve (area = {roc_auc:.4f})')
-#     plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
-#     plt.xlabel('False Positive Rate')
-#     plt.ylabel('True Positive Rate')
-#     plt.title('Receiver Operating Characteristic (ROC) Curve')
-#     plt.legend(loc='lower right')
+    # Calculate ROC AUC score
+    roc_auc = roc_auc_score(y_test, y_prob)
+    print(f"ROC AUC Score: {roc_auc:.4f}")
+
+    # Calculate ROC curve
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+
+    # Plot ROC curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='b', label=f'ROC curve (area = {roc_auc:.4f})')
+    plt.plot([0, 1], [0, 1], color='gray', linestyle='--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc='lower right')
+    plt.show()

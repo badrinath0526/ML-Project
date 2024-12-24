@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from scipy.stats import boxcox
-from scipy.stats import chi2_contingency
+from scipy.stats import boxcox,chi2_contingency
+from sklearn.feature_selection import f_classif
 import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -38,8 +38,10 @@ def load_and_clean_data(file_path):
 def preprocess_features(df):
     df['age'] = df['age'].apply(lambda x: 1 if x < 1 else x)
 
-    # columns_to_drop = ['gender', 'hypertension', 'heart_disease', 'smoking_history']  # Replace with actual feature names
-    # df.drop(columns=columns_to_drop, axis=1, inplace=True)
+    columns_to_drop = ['gender', 'hypertension', 'heart_disease', 'smoking_history']  # Replace with actual feature names
+    df.drop(columns=columns_to_drop, axis=1, inplace=True)
+
+
     # scaler=StandardScaler()
     # df_scaled=scaler.fit_transform(df.drop(columns=['diabetes']))
     # pca=PCA()
@@ -58,14 +60,15 @@ def split_data(X, y, test_size=0.2, random_state=22):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 # def perform_chi_square_test(df, target_col):
-#     categorical_columns = df.select_dtypes(include=['object', 'int']).columns
+#     # Only select categorical columns, 'smoking_history' and 'gender' are categorical
+#     categorical_columns = ['gender', 'smoking_history']
 #     results = {}
 
 #     for col in categorical_columns:
 #         if col == target_col:
 #             continue
         
-#         # Create a contingency table
+#         # Create a contingency table for Chi-Square test
 #         contingency_table = pd.crosstab(df[col], df[target_col])
         
 #         # Perform the Chi-Square test
@@ -78,4 +81,20 @@ def split_data(X, y, test_size=0.2, random_state=22):
 #             'Dependent': p < 0.05  # True if dependent on the target
 #         }
 
+#     print("Chi-Square Test Results for Categorical Variables:")
 #     print(results)
+
+# def perform_anova_f_test(X, y):
+#     # Apply ANOVA F-test to each feature
+#     f_values, p_values = f_classif(X, y)
+    
+#     anova_results = {}
+#     for i, feature in enumerate(X.columns):
+#         anova_results[feature] = {
+#             'F-Statistic': f_values[i],
+#             'p-value': p_values[i],
+#             'Significant': p_values[i] < 0.05
+#         }
+    
+#     print("ANOVA F-test Results:")
+#     print(anova_results)

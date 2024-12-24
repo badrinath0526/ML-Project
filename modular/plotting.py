@@ -20,8 +20,7 @@ def plot_correlation_matrix(df):
     plt.show()
 
 def plot_histograms(X_train, numerical_features):
-    X_train_transformed = X_train.copy()  # Make a copy to keep the original data
-
+    X_train_transformed = X_train.copy()  
     # Apply log transformation to 'HbA1c_level' and 'blood_glucose_level', and Box-Cox to 'bmi'
     X_train_transformed['HbA1c_level'] = np.log1p(X_train['HbA1c_level'])
     X_train_transformed['blood_glucose_level'] = np.log1p(X_train['blood_glucose_level'])
