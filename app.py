@@ -5,8 +5,8 @@ import numpy as np
 
 app=Flask(__name__)
 model=joblib.load("model1.pkl")
-le_gender=joblib.load("le_gender.pkl")
-le_smoking_history=joblib.load("le_smoking_history.pkl")
+# le_gender=joblib.load("le_gender.pkl")
+# le_smoking_history=joblib.load("le_smoking_history.pkl")
 
 
 @app.route("/")
@@ -15,7 +15,6 @@ def home():
 
 @app.route("/predict_diabetes",methods=['POST','GET'])
 def predict_diabetes():
-    prediction_text=None
     if request.method=='POST':
         age=float(request.form['age'])
         # gender=request.form['gender']
