@@ -14,7 +14,7 @@ This project is an end-to-end machine learning pipeline for predicting diabetes 
 - [Web Application](#web-application)
 - [Results](#results)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
@@ -90,7 +90,7 @@ This project is an end-to-end machine learning pipeline for predicting diabetes 
 2. Open a browser and navigate to `http://127.0.0.1:5000`.
 
 ### API Endpoint:
-- **POST `/predict`**:
+- **POST `/predict_diabetes`**:
    - Input: JSON with feature values.
    - Output: Predicted class (0 or 1).
    - Example:
@@ -100,7 +100,6 @@ This project is an end-to-end machine learning pipeline for predicting diabetes 
          "bmi": 28.5,
          "blood_glucose_level": 150,
          "hba1c_level": 7.2,
-         "smoking_history": "never"
      }
      ```
 
@@ -109,18 +108,18 @@ This project is an end-to-end machine learning pipeline for predicting diabetes 
 ## Model Training and Evaluation
 - **Model**: RandomForestClassifier
 - **Metrics**:
-  - Accuracy: 89%
-  - Precision: 85%
-  - Recall: 80%
-  - F1-score: 82%
+  - Accuracy: 97%
+  - Precision: 91%
+  - Recall: 86%
+  - F1-score: 89%
 - **Feature Importance**: Top predictors include `age`, `bmi`, `hba1c_level`, and `blood_glucose_level`.
 
 ---
 
 ## Web Application
 - **Backend**: Flask
-- **Frontend**: HTML/CSS with Bootstrap
-- **Deployment**: Dockerized and hosted on a cloud platform (e.g., AWS, Azure, Heroku).
+- **Frontend**: HTML/CSS 
+- **Deployment**:  hosted on a cloud platform:Render.
 
 ---
 
