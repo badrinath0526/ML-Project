@@ -65,7 +65,7 @@ def preprocess_features(df):
     X = df.drop(columns=['diabetes'], axis=1)
     y = df['diabetes']
 
-    X=apply_transformations(X)
+    # X=apply_transformations(X)
 
     return X, y
 
