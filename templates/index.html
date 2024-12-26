@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diabetes prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">  <!-- Optional CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // JavaScript function to hide the prediction text after 5 seconds
+        function hidePredictionText() {
+            const resultDiv = document.querySelector('.result');
+            if (resultDiv) {
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                }, 5000); // 5000ms = 5 seconds
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="hidePredictionText()">
     <div class="container">
         <h2>Diabetes prediction Form</h2>
         <form action="/predict_diabetes" method="POST">
