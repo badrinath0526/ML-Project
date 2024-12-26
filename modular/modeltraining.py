@@ -8,12 +8,34 @@ from sklearn.naive_bayes import GaussianNB, BernoulliNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
+from sklearn.base import BaseEstimator,TransformerMixin
 from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score
+from scipy.stats import boxcox
+import numpy as np
 import matplotlib.pyplot as plt
 import joblib
 
+
+# class FeatureTransformer(BaseEstimator, TransformerMixin):
+#     def fit(self, X, y=None):
+#         # Fit Box-Cox parameters on training data
+#         self.bmi_lambda_ = boxcox(X['bmi'] + 1)[1]
+#         return self
+
+#     def transform(self, X):
+#         # Apply log transformation
+#         X = X.copy()
+#         X['HbA1c_level'] = np.log1p(X['HbA1c_level'])
+#         X['blood_glucose_level'] = np.log1p(X['blood_glucose_level'])
+
+#         # Apply Box-Cox transformation
+#         X['bmi'] = boxcox(X['bmi'] + 1, self.bmi_lambda_)
+        
+#         return X
+
 def build_pipeline():
     return Pipeline([
+        # ('transform',FeatureTransformer()),
         ('smote', KMeansSMOTE(sampling_strategy='auto', random_state=22)),
         ('scaler', StandardScaler()),
         ('model', RandomForestClassifier(criterion='entropy', random_state=22))
@@ -79,12 +101,13 @@ def calculate_training_accuracy(grid_search, X_train, y_train):
     train_accuracy = accuracy_score(y_train, y_train_pred)
     return train_accuracy
 
-def evaluate_model(grid_search, X_test, y_test, threshold=0.25):
+def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
     best_model = grid_search.best_estimator_
     y_prob = best_model.predict_proba(X_test)
-    y_pred_adjusted = (y_prob[:, 1] >= threshold).astype(int)
+    # y_pred = (y_prob >= 0.5).astype(int)
+    y_pred = (y_prob[:, 1] >= threshold).astype(int)
     
-    report_best = classification_report(y_test, y_pred_adjusted)
+    report_best = classification_report(y_test, y_pred)
     print(f"Best parameters found: {grid_search.best_params_}")
     print(f"Best cross-validation precision score: {grid_search.best_score_:.4f}")
     print(report_best)
