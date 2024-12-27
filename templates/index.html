@@ -9,10 +9,11 @@
         // JavaScript function to hide the prediction text after 5 seconds
         function hidePredictionText() {
             const resultDiv = document.querySelector('.result');
+            const form=document.querySelector('form');
             if (resultDiv) {
                 setTimeout(() => {
                     resultDiv.style.display = 'none';
-                }, 5000); // 5000ms = 5 seconds
+                }, 8000); // 5000ms = 5 seconds
             }
         }
     </script>
@@ -65,7 +66,7 @@
             </div>
             <div class="form-group">
                 <label for="blood_glucose">Blood Glucose:</label>
-                <input type="number" id="blood_glucose" name="blood_glucose" required min="20" max="500" />
+                <input type="number" id="blood_glucose" name="blood_glucose" required min="20" max="350" />
             </div>
             <button type="submit">Predict</button>
         </form>

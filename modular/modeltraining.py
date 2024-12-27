@@ -1,6 +1,6 @@
 from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import KMeansSMOTE,SMOTE
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression,LinearRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.base import BaseEstimator,TransformerMixin
-from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score
+from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score,mean_squared_error,r2_score
 from scipy.stats import boxcox
 import numpy as np
 import matplotlib.pyplot as plt
@@ -81,6 +81,7 @@ def grid_search_tuning(pipeline, X_train, y_train):
     #     'model__kernel': ['rbf'],  # Different kernel types
     #     'model__gamma': ['scale'],  # Gamma values
     # }
+
     #Guassian Naive Bayes
 #     param_grid = {
 #     'model__var_smoothing': [1e-9, 1e-8, 1e-7, 1e-6],
@@ -94,6 +95,7 @@ def grid_search_tuning(pipeline, X_train, y_train):
     X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
     print(f"Shape of dataset after oversampling: {X_resampled.shape}, {y_resampled.shape}")
     return grid_search
+
 
 def calculate_training_accuracy(grid_search, X_train, y_train):
     best_model = grid_search.best_estimator_
@@ -112,6 +114,8 @@ def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
     print(f"Best cross-validation precision score: {grid_search.best_score_:.4f}")
     print(report_best)
 
+
+
 # def get_feature_importance(grid_search):
 #     best_model = grid_search.best_estimator_
     
@@ -128,20 +132,20 @@ def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
 def save_model(grid_search):
     # Save the best model to a file using joblib
     joblib.dump(grid_search.best_estimator_, 'model1.pkl')
-    print("Model saved as model.pkl")
+    print("Model saved as model1.pkl")
 
-# from sklearn.feature_selection import RFE
+from sklearn.feature_selection import RFE
 
-# def perform_rfe(X_train, y_train, estimator=None):
-#     if estimator is None:
-#         estimator = RandomForestClassifier(random_state=22)  # You can use any estimator here
+def perform_rfe(X_train, y_train, estimator=None):
+    if estimator is None:
+        estimator = RandomForestClassifier(random_state=22)  # You can use any estimator here
     
-#     rfe = RFE(estimator, n_features_to_select=4)  # Select top 5 features
-#     rfe.fit(X_train, y_train)
+    rfe = RFE(estimator, n_features_to_select=4)  # Select top 4 features
+    rfe.fit(X_train, y_train)
     
-#     selected_features = X_train.columns[rfe.support_]
-#     print("Selected Features by RFE:")
-#     print(selected_features)   
+    selected_features = X_train.columns[rfe.support_]
+    print("Selected Features by RFE:")
+    print(selected_features)   
 
 
 def evaluate_roc_auc(model, X_test, y_test):
@@ -165,3 +169,30 @@ def evaluate_roc_auc(model, X_test, y_test):
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend(loc='lower right')
     plt.show()
+
+# def train_regression_model(model,X_train,y_train,X_test):
+   
+#     model.fit(X_train,y_train)
+#     y_pred_train=model.predict(X_train)
+#     y_pred_prob_train=1/(1+np.exp(-y_pred_train))
+#     y_pred_test=model.predict(X_test)
+#     y_pred_prob_test=1/(1+np.exp(-y_pred_test))
+#     return y_pred_prob_train,y_pred_prob_test
+
+
+# def train_reg_model(model,X_train,y_train):
+    
+
+#     pred=model.predict(X_train)
+#     return pred
+
+
+# def evaluate_regression_model(model,X_test,y_test):
+#     scaler=joblib.load('scaler_regression.pkl')
+#     X_scaled=scaler.transform(X_test)
+#     y_pred=model.predict(X_scaled)
+#     mse=mean_squared_error(y_test,y_pred)
+#     print(f"Mean squared error: {mse:.4f}")
+#     r2=r2_score(y_test,y_pred)
+#     print(f"R-square score : {r2:.4f}")
+

@@ -6,6 +6,7 @@ from scipy.stats import boxcox,chi2_contingency
 import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+
 def load_and_clean_data(file_path):
     df = pd.read_csv(file_path)
 
@@ -49,7 +50,7 @@ def load_and_clean_data(file_path):
 def preprocess_features(df):
     df['age'] = df['age'].apply(lambda x: 1 if x < 1 else x)
 
-    columns_to_drop = ['gender', 'hypertension', 'heart_disease', 'smoking_history']  # Replace with actual feature names
+    columns_to_drop = ['gender', 'hypertension', 'heart_disease','smoking_history']  # Replace with actual feature names
     df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
 
@@ -65,9 +66,12 @@ def preprocess_features(df):
     X = df.drop(columns=['diabetes'], axis=1)
     y = df['diabetes']
 
-    X=apply_transformations(X)
+    # X=apply_transformations(X)
 
     return X, y
+
+
+
 
 def split_data(X, y, test_size=0.2, random_state=22):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
@@ -81,30 +85,32 @@ def split_data(X, y, test_size=0.2, random_state=22):
     # return X_train, X_test, y_train, y_test
 
 
-# def perform_chi_square_test(df, target_col):
-#     # Only select categorical columns, 'smoking_history' and 'gender' are categorical
-#     categorical_columns = ['gender', 'smoking_history']
-#     results = {}
+def perform_chi_square_test(df, target_col):
+    # Only select categorical columns, 'smoking_history' and 'gender' are categorical
+    categorical_columns = ['gender', 'smoking_history']
+    results = {}
 
-#     for col in categorical_columns:
-#         if col == target_col:
-#             continue
+    for col in categorical_columns:
+        if col == target_col:
+            continue
         
-#         # Create a contingency table for Chi-Square test
-#         contingency_table = pd.crosstab(df[col], df[target_col])
+        # Create a contingency table for Chi-Square test
+        contingency_table = pd.crosstab(df[col], df[target_col])
         
-#         # Perform the Chi-Square test
-#         chi2, p, dof, expected = chi2_contingency(contingency_table)
+        # Perform the Chi-Square test
+        chi2, p, dof, expected = chi2_contingency(contingency_table)
         
-#         results[col] = {
-#             'Chi-Square Statistic': chi2,
-#             'p-value': p,
-#             'Degrees of Freedom': dof,
-#             'Dependent': p < 0.05  # True if dependent on the target
-#         }
+        results[col] = {
+            'Chi-Square Statistic': chi2,
+            'p-value': p,
+            'Degrees of Freedom': dof,
+            'Dependent': p < 0.05  # True if dependent on the target
+        }
 
-#     print("Chi-Square Test Results for Categorical Variables:")
-#     print(results)
+    print("Chi-Square Test Results for Categorical Variables:")
+    print(results)
+
+
 
 # def perform_anova_f_test(X, y):
 #     # Apply ANOVA F-test to each feature
