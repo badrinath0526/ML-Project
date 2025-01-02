@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import joblib
 import numpy as np
 import pandas as pd
@@ -7,9 +7,6 @@ app = Flask(__name__)
 model = joblib.load("model1.pkl")
 regressor=joblib.load("regressor.pkl")
 scaler=joblib.load("scaler_regression.pkl")
-
-# le_gender = joblib.load("le_gender.pkl")
-# le_smoking_history = joblib.load("le_smoking_history.pkl")
 
 @app.route("/")
 def home():
@@ -32,23 +29,9 @@ def predict_diabetes():
             print(y_pred)
             y_pred=np.round(y_pred*100,2)
 
-
             # Make prediction
             prediction = model.predict(input_data)
             print(prediction)
-
-
-            # prediction_prob = model.predict_proba(input_data)
-        
-            # print(prediction_prob)
-        
-            # if prediction_prob[0][0] > prediction_prob[0][1]:
-            #     prediction_text = "Your diabetes result is negative with {:.2f}% accuracy".format(prediction_prob[0][0] * 100)
-            # else:
-            #     prediction_text = "Your diabetes result is positive with {:.2f}% accuracy".format(prediction_prob[0][1] * 100)
-
-
- 
 
             # Return prediction result
             if prediction[0] == 0:

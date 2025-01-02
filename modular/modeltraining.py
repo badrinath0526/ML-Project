@@ -10,29 +10,14 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.base import BaseEstimator,TransformerMixin
 from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score,mean_squared_error,r2_score
+from sklearn.feature_selection import RFE
 from scipy.stats import boxcox
 import numpy as np
 import matplotlib.pyplot as plt
 import joblib
 
 
-# class FeatureTransformer(BaseEstimator, TransformerMixin):
-#     def fit(self, X, y=None):
-#         # Fit Box-Cox parameters on training data
-#         self.bmi_lambda_ = boxcox(X['bmi'] + 1)[1]
-#         return self
-
-#     def transform(self, X):
-#         # Apply log transformation
-#         X = X.copy()
-#         X['HbA1c_level'] = np.log1p(X['HbA1c_level'])
-#         X['blood_glucose_level'] = np.log1p(X['blood_glucose_level'])
-
-#         # Apply Box-Cox transformation
-#         X['bmi'] = boxcox(X['bmi'] + 1, self.bmi_lambda_)
-        
-#         return X
-
+#Sequence of steps encapsulated into a single object to automate ML workflow
 def build_pipeline():
     return Pipeline([
         # ('transform',FeatureTransformer()),
@@ -46,6 +31,7 @@ def build_pipeline():
         # ('model', GaussianNB())  # Gaussian Naive Bayes
     ])
 
+#Parameters grid for hyperparameter tuning for each model
 def grid_search_tuning(pipeline, X_train, y_train):
     #Random forest
     param_grid = {
@@ -115,27 +101,29 @@ def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
     print(report_best)
 
 
-
-# def get_feature_importance(grid_search):
-#     best_model = grid_search.best_estimator_
+# Calculates feature importance score when model is Random Forest
+def get_feature_importance(grid_search):
+    best_model = grid_search.best_estimator_
     
-#     # Check if RandomForestClassifier is the model
-#     if isinstance(best_model.named_steps['model'], RandomForestClassifier):
-#         feature_importance = best_model.named_steps['model'].feature_importances_
-#         print("Feature Importance Scores:")
-#         for idx, score in enumerate(feature_importance):
-#             print(f"Feature {idx + 1}: {score:.4f}")
-#     else:
-#         print("Model is not Random Forest. Feature importance is not available.")
+    # Check if RandomForestClassifier is the model
+    if isinstance(best_model.named_steps['model'], RandomForestClassifier):
+        feature_importance = best_model.named_steps['model'].feature_importances_
+        print("Feature Importance Scores:")
+        for idx, score in enumerate(feature_importance):
+            print(f"Feature {idx + 1}: {score:.4f}")
+    else:
+        print("Model is not Random Forest. Feature importance is not available.")
 
-#     plt.show()
+    plt.show()
+
+# Saves the best model to a file using joblib
 def save_model(grid_search):
-    # Save the best model to a file using joblib
+    
     joblib.dump(grid_search.best_estimator_, 'model1.pkl')
     print("Model saved as model1.pkl")
 
-from sklearn.feature_selection import RFE
 
+#Performs recursive feature elimination
 def perform_rfe(X_train, y_train, estimator=None):
     if estimator is None:
         estimator = RandomForestClassifier(random_state=22)  # You can use any estimator here
@@ -170,29 +158,19 @@ def evaluate_roc_auc(model, X_test, y_test):
     plt.legend(loc='lower right')
     plt.show()
 
-# def train_regression_model(model,X_train,y_train,X_test):
-   
-#     model.fit(X_train,y_train)
-#     y_pred_train=model.predict(X_train)
-#     y_pred_prob_train=1/(1+np.exp(-y_pred_train))
-#     y_pred_test=model.predict(X_test)
-#     y_pred_prob_test=1/(1+np.exp(-y_pred_test))
-#     return y_pred_prob_train,y_pred_prob_test
+# class FeatureTransformer(BaseEstimator, TransformerMixin):
+#     def fit(self, X, y=None):
+#         # Fit Box-Cox parameters on training data
+#         self.bmi_lambda_ = boxcox(X['bmi'] + 1)[1]
+#         return self
 
+#     def transform(self, X):
+#         # Apply log transformation
+#         X = X.copy()
+#         X['HbA1c_level'] = np.log1p(X['HbA1c_level'])
+#         X['blood_glucose_level'] = np.log1p(X['blood_glucose_level'])
 
-# def train_reg_model(model,X_train,y_train):
-    
-
-#     pred=model.predict(X_train)
-#     return pred
-
-
-# def evaluate_regression_model(model,X_test,y_test):
-#     scaler=joblib.load('scaler_regression.pkl')
-#     X_scaled=scaler.transform(X_test)
-#     y_pred=model.predict(X_scaled)
-#     mse=mean_squared_error(y_test,y_pred)
-#     print(f"Mean squared error: {mse:.4f}")
-#     r2=r2_score(y_test,y_pred)
-#     print(f"R-square score : {r2:.4f}")
-
+#         # Apply Box-Cox transformation
+#         X['bmi'] = boxcox(X['bmi'] + 1, self.bmi_lambda_)
+        
+#         return X

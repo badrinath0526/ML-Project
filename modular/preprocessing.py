@@ -7,6 +7,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
+#Cleans data by droppping duplicates and encoding categorical variables
 def load_and_clean_data(file_path):
     df = pd.read_csv(file_path)
 
@@ -34,6 +35,8 @@ def load_and_clean_data(file_path):
 
 
     return df   
+
+#Applies transformations to continuous features
 # def apply_transformations(X):
     
 #     X = X.copy()  # Avoid modifying the original dataset
@@ -47,6 +50,8 @@ def load_and_clean_data(file_path):
     
 #     return X
 
+
+#Preprocesses features
 def preprocess_features(df):
     df['age'] = df['age'].apply(lambda x: 1 if x < 1 else x)
 
@@ -72,10 +77,10 @@ def preprocess_features(df):
 
 
 
-
+#Splits the data into training and testing 
 def split_data(X, y, test_size=0.2, random_state=22):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
-
+    
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
 
     # # Apply Box-Cox transformation using parameters fitted on training data
@@ -84,7 +89,7 @@ def split_data(X, y, test_size=0.2, random_state=22):
 
     # return X_train, X_test, y_train, y_test
 
-
+#Performs chi-square test on categorical variables
 def perform_chi_square_test(df, target_col):
     # Only select categorical columns, 'smoking_history' and 'gender' are categorical
     categorical_columns = ['gender', 'smoking_history']
@@ -104,7 +109,7 @@ def perform_chi_square_test(df, target_col):
             'Chi-Square Statistic': chi2,
             'p-value': p,
             'Degrees of Freedom': dof,
-            'Dependent': p < 0.05  # True if dependent on the target
+            'Dependent': p < 0.05  
         }
 
     print("Chi-Square Test Results for Categorical Variables:")
@@ -112,17 +117,4 @@ def perform_chi_square_test(df, target_col):
 
 
 
-# def perform_anova_f_test(X, y):
-#     # Apply ANOVA F-test to each feature
-#     f_values, p_values = f_classif(X, y)
-    
-#     anova_results = {}
-#     for i, feature in enumerate(X.columns):
-#         anova_results[feature] = {
-#             'F-Statistic': f_values[i],
-#             'p-value': p_values[i],
-#             'Significant': p_values[i] < 0.05
-#         }
-    
-#     print("ANOVA F-test Results:")
-#     print(anova_results)
+

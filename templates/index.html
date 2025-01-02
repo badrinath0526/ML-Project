@@ -6,14 +6,12 @@
     <title>Diabetes prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script>
-        // JavaScript function to hide the prediction text after 5 seconds
         function hidePredictionText() {
             const resultDiv = document.querySelector('.result');
-            const form=document.querySelector('form');
             if (resultDiv) {
                 setTimeout(() => {
                     resultDiv.style.display = 'none';
-                }, 8000); // 5000ms = 5 seconds
+                }, 8000); 
             }
         }
     </script>
@@ -26,36 +24,6 @@
                 <label for="age">Age:</label>
                 <input type="number" id="age" name="age" required min="1" max="110"/>
             </div>
-            <!-- <div class="form-group">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div> -->
-            <!-- <div class="form-group">
-                <label for="hypertension">Hypertension:</label>
-                <select id="hypertension" name="hypertension" required>
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="heart_disease">Heart Disease:</label>
-                <select id="heart_disease" name="heart_disease" required>
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
-                </select>
-            </div> -->
-            <!-- <div class="form-group">
-                <label for="smoking_history">Smoking History:</label>
-                <select id="smoking_history" name="smoking_history" required        >
-                    <option value="never">Never</option>
-                    <option value="past">Past</option>
-                    <option value="current">Current</option>
-                    <option value="No Info">No Info</option>
-                </select>
-                </div> -->
             <div class="form-group">
                 <label for="bmi">BMI:</label>
                 <input type="number" id="bmi" name="bmi" required min="7" max="85" step="0.01"/>

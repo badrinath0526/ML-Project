@@ -18,9 +18,11 @@ X_train_reg,X_test_reg,y_train_reg,y_test_reg=split_data(X,y)
 
 
 
-# Perform Recursive Feature Elimination (RFE)
 perform_rfe(X_train, y_train)
+
+
 small_df=df.iloc[30000:60000]
+
 # # Visualization
 plot_class_distribution(df)
 plot_correlation_matrix(df)
@@ -41,7 +43,7 @@ best_model = grid_search.best_estimator_
 evaluate_roc_auc(best_model, X_test, y_test)
 save_model(grid_search)
 
-
+#Regression model for generating continuous values and retraining to get risk percentage
 model=LinearRegression()
 scaler=StandardScaler()
 X_train_scaled=scaler.fit_transform(X_train_reg)
