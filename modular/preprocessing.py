@@ -24,7 +24,7 @@ def load_and_clean_data(file_path):
 
     # Label encoding for categorical columns
     le_gender = LabelEncoder()
-    le_smoking_history=LabelEncoder()
+    le_smoking_history=LabelEncoder()       
     
     df['gender']=le_gender.fit_transform(df['gender'])
     df['smoking_history']=le_smoking_history.fit_transform(df['smoking_history'])
@@ -50,7 +50,7 @@ def load_and_clean_data(file_path):
 def preprocess_features(df):
     df['age'] = df['age'].apply(lambda x: 1 if x < 1 else x)
 
-    columns_to_drop = ['gender', 'hypertension', 'heart_disease','smoking_history']  # Replace with actual feature names
+    columns_to_drop = ['gender', 'hypertension', 'heart_disease','smoking_history'] 
     df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
 
