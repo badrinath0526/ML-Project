@@ -28,6 +28,7 @@ setup(
     description='A machine learning project for diabetes prediction using a classification model and regression analysis',
     long_description='This project includes preprocessing, model training, evaluation, and prediction for diabetes classification using a dataset of patient information.',
     long_description_content_type='text/markdown',
+    url="https://github.com/badrinath0526/ML-Project"
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
