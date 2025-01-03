@@ -1,13 +1,8 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from imblearn.over_sampling import KMeansSMOTE,SMOTE
-from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import KMeansSMOTE
 from keras._tf_keras.keras.layers import Dense
 from keras._tf_keras.keras.models import Sequential
-from keras._tf_keras.keras.optimizers import Adam
-from sklearn.preprocessing import StandardScaler,LabelEncoder
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
@@ -28,13 +23,13 @@ X_train_scaled=scaler.fit_transform(X_train_res)
 X_test_scaled=scaler.transform(X_test)
 
 model=Sequential([
-    Dense(64,input_dim=X_train_scaled.shape[1],activation='relu'),
+    Dense(64,input_dim=X_train_scaled.shape[1]),
     Dense(32,activation='relu'),
-    # Dense(16,activation='relu'),
+    Dense(16,activation='relu'),
     Dense(1,activation='sigmoid'),
 ])
 
-model.compile(optimizer='SGD',loss='binary_crossentropy',metrics=['accuracy'])
+model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
 model.fit(X_train_scaled,y_train_res,epochs=10,batch_size=32,validation_data=(X_test_scaled,y_test))
 

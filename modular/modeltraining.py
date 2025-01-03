@@ -1,34 +1,21 @@
 from imblearn.pipeline import Pipeline
-from imblearn.over_sampling import KMeansSMOTE,SMOTE
-from sklearn.linear_model import LogisticRegression,LinearRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.naive_bayes import GaussianNB, BernoulliNB
+from imblearn.over_sampling import KMeansSMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
-from sklearn.base import BaseEstimator,TransformerMixin
-from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score,mean_squared_error,r2_score
+from sklearn.metrics import classification_report,roc_auc_score,roc_curve,accuracy_score
 from sklearn.feature_selection import RFE
-from scipy.stats import boxcox
-import numpy as np
 import matplotlib.pyplot as plt
 import joblib
-
+from Config.configuration import log_info,log_error
 
 #Sequence of steps encapsulated into a single object to automate ML workflow
 def build_pipeline():
     return Pipeline([
-        # ('transform',FeatureTransformer()),
+
         ('smote', KMeansSMOTE(sampling_strategy='auto', random_state=22)),
         ('scaler', StandardScaler()),
         ('model', RandomForestClassifier(criterion='entropy', random_state=22))
-        # ('model', LogisticRegression(random_state=22))  # Logistic Regression
-        # ('model', DecisionTreeClassifier(random_state=22))  # Decision Tree
-        # ('model', KNeighborsClassifier())  # K-Nearest Neighbors
-        # ('model', SVC(random_state=22))  # Support Vector Machine
-        # ('model', GaussianNB())  # Gaussian Naive Bayes
     ])
 
 #Parameters grid for hyperparameter tuning for each model
@@ -41,38 +28,6 @@ def grid_search_tuning(pipeline, X_train, y_train):
         'model__class_weight': ['balanced', {0: 1, 1: 2}],
     }
 
-    # Logistic Regression
-    # param_grid = {
-    #     'model__C': [0.1, 1, 10],  # Regularization parameter
-    #     'model__solver': ['liblinear', 'saga'],
-    # }
-
-    # Decision Tree
-    # param_grid = {
-    #     'model__max_depth': [None, 10, 20, 30],
-    #     'model__min_samples_split': [2, 5, 10],
-    #     'model__criterion': ['gini', 'entropy'],
-    # }
-
-    # K-Nearest Neighbors
-    # param_grid = {
-    #     'model__n_neighbors': [3, 5, 7, 9],
-    #     'model__weights': ['uniform', 'distance'],
-    #     'model__metric': ['euclidean', 'manhattan', 'minkowski'],
-    # }
-
-    # Support Vector Machine
-    # param_grid = {
-    #     'model__C': [10,100],  # Regularization parameter
-    #     'model__kernel': ['rbf'],  # Different kernel types
-    #     'model__gamma': ['scale'],  # Gamma values
-    # }
-
-    #Guassian Naive Bayes
-#     param_grid = {
-#     'model__var_smoothing': [1e-9, 1e-8, 1e-7, 1e-6],
-#     'model__priors': [None, [0.5, 0.5]],
-# }
 
     kfold = StratifiedKFold(shuffle=True, n_splits=2, random_state=22)
     grid_search = GridSearchCV(pipeline, param_grid, scoring='precision',cv=kfold, verbose=1, n_jobs=-1)
@@ -80,6 +35,7 @@ def grid_search_tuning(pipeline, X_train, y_train):
     smote = grid_search.best_estimator_.named_steps['smote']
     X_resampled, y_resampled = smote.fit_resample(X_train, y_train)
     print(f"Shape of dataset after oversampling: {X_resampled.shape}, {y_resampled.shape}")
+    log_info("Hyperparameter tuning is completed after grid search finds the best parameters")
     return grid_search
 
 
@@ -87,6 +43,7 @@ def calculate_training_accuracy(grid_search, X_train, y_train):
     best_model = grid_search.best_estimator_
     y_train_pred = best_model.predict(X_train)
     train_accuracy = accuracy_score(y_train, y_train_pred)
+    log_info("Training accuracy is calculated")
     return train_accuracy
 
 def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
@@ -99,6 +56,7 @@ def evaluate_model(grid_search, X_test, y_test,threshold=0.25):
     print(f"Best parameters found: {grid_search.best_params_}")
     print(f"Best cross-validation precision score: {grid_search.best_score_:.4f}")
     print(report_best)
+    log_info("Model is evaluated with best parameters")
 
 
 # Calculates feature importance score when model is Random Forest
@@ -145,6 +103,7 @@ def evaluate_roc_auc(model, X_test, y_test):
     roc_auc = roc_auc_score(y_test, y_prob)
     print(f"ROC AUC Score: {roc_auc:.4f}")
 
+
     # Calculate ROC curve
     fpr, tpr, _ = roc_curve(y_test, y_prob)
 
@@ -157,20 +116,3 @@ def evaluate_roc_auc(model, X_test, y_test):
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend(loc='lower right')
     plt.show()
-
-# class FeatureTransformer(BaseEstimator, TransformerMixin):
-#     def fit(self, X, y=None):
-#         # Fit Box-Cox parameters on training data
-#         self.bmi_lambda_ = boxcox(X['bmi'] + 1)[1]
-#         return self
-
-#     def transform(self, X):
-#         # Apply log transformation
-#         X = X.copy()
-#         X['HbA1c_level'] = np.log1p(X['HbA1c_level'])
-#         X['blood_glucose_level'] = np.log1p(X['blood_glucose_level'])
-
-#         # Apply Box-Cox transformation
-#         X['bmi'] = boxcox(X['bmi'] + 1, self.bmi_lambda_)
-        
-#         return X

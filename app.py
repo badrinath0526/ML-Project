@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import joblib
 import numpy as np
 import pandas as pd
-
+from modular.Config.configuration import log_info, log_error
 app = Flask(__name__)
 model = joblib.load("model1.pkl")
 regressor=joblib.load("regressor.pkl")
@@ -10,6 +10,7 @@ scaler=joblib.load("scaler_regression.pkl")
 
 @app.route("/")
 def home():
+    log_info("Home page loaded")
     return render_template("index.html")
 
 @app.route("/predict_diabetes", methods=['POST', 'GET'])

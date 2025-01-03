@@ -1,11 +1,9 @@
-import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from scipy.stats import boxcox,chi2_contingency
+from scipy.stats import chi2_contingency
 import joblib
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from Config.configuration import log_info,log_error
 
 #Cleans data by droppping duplicates and encoding categorical variables
 def load_and_clean_data(file_path):
@@ -13,7 +11,7 @@ def load_and_clean_data(file_path):
 
     # Dropping duplicates
     df.drop_duplicates(inplace=True)
-    
+    log_info("Dropped duplicates")
 
     # Handling categorical features
     df['smoking_history'] = df['smoking_history'].replace({
@@ -29,6 +27,7 @@ def load_and_clean_data(file_path):
     
     df['gender']=le_gender.fit_transform(df['gender'])
     df['smoking_history']=le_smoking_history.fit_transform(df['smoking_history'])
+    log_info("Encoded categorical variables")
 
     joblib.dump(le_gender,'le_gender.pkl')
     joblib.dump(le_smoking_history,'le_smoking_history.pkl')
@@ -36,19 +35,6 @@ def load_and_clean_data(file_path):
 
     return df   
 
-#Applies transformations to continuous features
-# def apply_transformations(X):
-    
-#     X = X.copy()  # Avoid modifying the original dataset
-
-#     # Apply log transformation
-#     X['HbA1c_level'] = np.log1p(X['HbA1c_level'])
-#     X['blood_glucose_level'] = np.log1p(X['blood_glucose_level'])
-
-#     # Apply Box-Cox transformation (ensure non-negative data)
-#     X['bmi'], _ = boxcox(X['bmi'] + 1)  # Add 1 to avoid zero
-    
-#     return X
 
 
 #Preprocesses features
@@ -58,20 +44,10 @@ def preprocess_features(df):
     columns_to_drop = ['gender', 'hypertension', 'heart_disease','smoking_history'] 
     df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
-
-    # scaler=StandardScaler()
-    # df_scaled=scaler.fit_transform(df.drop(columns=['diabetes']))
-    # pca=PCA()
-    # pca.fit(df_scaled)
-    # print("Explained Variance Ratio (Cumulative):")
-    # print(np.cumsum(pca.explained_variance_ratio_))
-
-    # X=pd.DataFrame(df_scaled)
-    # y=df['diabetes']
     X = df.drop(columns=['diabetes'], axis=1)
     y = df['diabetes']
+    log_info("Dropped unnecessary features")
 
-    # X=apply_transformations(X)
 
     return X, y
 
@@ -79,15 +55,10 @@ def preprocess_features(df):
 
 #Splits the data into training and testing 
 def split_data(X, y, test_size=0.2, random_state=22):
+    log_info("Split data into train and test")
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
+
     
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
-
-    # # Apply Box-Cox transformation using parameters fitted on training data
-    # X_train = apply_transformations(X_train)
-    # X_test = apply_transformations(X_test)
-
-    # return X_train, X_test, y_train, y_test
 
 #Performs chi-square test on categorical variables
 def perform_chi_square_test(df, target_col):

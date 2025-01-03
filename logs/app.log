@@ -1,0 +1,36 @@
+2025-01-03 12:00:13 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-03 12:00:13 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-03 12:00:13 - matplotlib - DEBUG - interactive is False
+2025-01-03 12:00:13 - matplotlib - DEBUG - platform is linux
+2025-01-03 12:00:14 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-03 12:00:14 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-03 12:00:14 - Config.configuration - INFO - Dropped duplicates
+2025-01-03 12:00:14 - Config.configuration - INFO - Encoded categorical variables
+2025-01-03 12:00:14 - Config.configuration - INFO - Dropped unnecessary features
+2025-01-03 12:00:14 - Config.configuration - INFO - Split data into train and test
+2025-01-03 12:00:14 - Config.configuration - INFO - Split data into train and test
+2025-01-03 12:00:14 - matplotlib.pyplot - DEBUG - Loaded backend qtagg version 5.15.10.
+2025-01-03 12:00:14 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-03 12:00:14 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-03 12:00:28 - Config.configuration - INFO - Count plot is visualized
+2025-01-03 12:00:28 - matplotlib.colorbar - DEBUG - locator: <matplotlib.ticker.AutoLocator object at 0x7d067b2bfa60>
+2025-01-03 12:00:35 - Config.configuration - INFO - Correlation matrix is visualized
+2025-01-03 12:00:39 - Config.configuration - INFO - Histplots are visualized
+2025-01-03 12:00:41 - Config.configuration - INFO - Box plot is visualized
+2025-01-03 12:00:54 - Config.configuration - INFO - Pairplot is visualized
+2025-01-03 12:00:54 - Config.configuration - INFO - Data sent into pipeline for training
+2025-01-03 12:02:04 - Config.configuration - INFO - Hyperparameter tuning is completed after grid search finds the best parameters
+2025-01-03 12:02:04 - Config.configuration - INFO - Training accuracy is calculated
+2025-01-03 12:02:04 - Config.configuration - INFO - Model is evaluated with best parameters
+2025-01-03 12:06:05 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-03 12:06:05 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-03 12:06:05 - werkzeug - INFO -  * Restarting with stat
+2025-01-03 12:06:06 - werkzeug - WARNING -  * Debugger is active!
+2025-01-03 12:06:06 - werkzeug - INFO -  * Debugger PIN: 127-118-519
+2025-01-03 12:06:34 - modular.Config.configuration - INFO - Home page loaded
+2025-01-03 12:06:34 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:34] "GET / HTTP/1.1" 200 -
+2025-01-03 12:06:34 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:34] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-01-03 12:06:57 - modular.Config.configuration - INFO - Home page loaded
+2025-01-03 12:06:57 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:57] "GET / HTTP/1.1" 200 -
+2025-01-03 12:06:57 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:57] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -

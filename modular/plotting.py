@@ -3,6 +3,9 @@ import seaborn as sns
 import numpy as np
 from scipy.stats import boxcox
 from sklearn.metrics import roc_curve,roc_auc_score
+from Config.configuration import log_info,log_error
+
+
 
 #Count plot for target variable
 def plot_class_distribution(df):
@@ -12,6 +15,7 @@ def plot_class_distribution(df):
     plt.xlabel("Diabetes")
     plt.ylabel("Count")
     plt.show()
+    log_info("Count plot is visualized")
 
 #Correlation matrix to check correlation and multicollinearity between all features including target
 def plot_correlation_matrix(df):
@@ -20,6 +24,7 @@ def plot_correlation_matrix(df):
     sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
     plt.title("Correlation matrix")
     plt.show()
+    log_info("Correlation matrix is visualized")
 
 #Histplot for checking distribution of continuous features.
 def plot_histograms(X_train, numerical_features):
@@ -50,6 +55,7 @@ def plot_histograms(X_train, numerical_features):
     plt.tight_layout()
     plt.subplots_adjust(top=0.9)
     plt.show()
+    log_info("Histplots are visualized")
 
 #Boxplot to check for outliers and ranges of features
 def plot_boxplot(df):
@@ -57,12 +63,14 @@ def plot_boxplot(df):
     sns.boxplot(data=df)
     plt.title('Boxplot of Features in Full Dataset')
     plt.show()
+    log_info("Box plot is visualized")
 
 #Pairplot for visualizing relationships between multiple variables
 def plot_pairplot(df,target_column='diabetes'):
     sns.pairplot(df,hue=target_column,markers=["o","s"],palette="coolwarm")
     plt.suptitle("Pairplot of features colored by diabetes status",y=1.02,fontsize=16)
     plt.show()
+    log_info("Pairplot is visualized")
 
 #Roc curve to evaluate performance of binary classification by plotting TPR against FPR  
 def calculate_auc_roc(y_true, y_pred_proba):
