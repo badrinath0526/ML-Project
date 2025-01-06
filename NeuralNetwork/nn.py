@@ -5,10 +5,34 @@ from keras._tf_keras.keras.models import Sequential
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
+from pymongo import MongoClient
+import os 
+from dotenv import load_dotenv
 
-df=pd.read_csv("data/diabetes_prediction_dataset.csv")
+load_dotenv()
 
-# print(df.head()
+uri=os.getenv("MONGO_DB_URI")
+if uri is None:
+    print("MONGODB_URI not found")
+    exit()
+client = MongoClient(uri)
+
+try:
+    client.admin.command('ping')  # Test connection
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+    exit()
+    
+database = client["diabetes_db"]
+collection = database["diabetes_data"]
+
+
+cursor = collection.find()
+df = pd.DataFrame(list(cursor))
+df.drop(columns=['_id'],inplace=True)
+client.close()
+
 df.drop_duplicates(inplace=True)
 scaler=StandardScaler()
 # df = pd.get_dummies(df, columns=['smoking_history'], drop_first=True)
