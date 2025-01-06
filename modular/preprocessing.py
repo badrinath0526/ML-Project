@@ -12,7 +12,7 @@ load_dotenv()
 #Cleans data by droppping duplicates and encoding categorical variables
 # def load_and_clean_data(file_path):
 #     df = pd.read_csv(file_path)
-# 
+#
 def load_and_clean_data():
     # MongoDB connection URI
     uri = os.getenv('MONGO_DB_URI')

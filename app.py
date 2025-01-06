@@ -3,10 +3,16 @@ import joblib
 import numpy as np
 import pandas as pd
 from modular.Config.configuration import log_info, log_error
+from dotenv import load_dotenv
+import os
 app = Flask(__name__)
 model = joblib.load("model1.pkl")
 regressor=joblib.load("regressor.pkl")
 scaler=joblib.load("scaler_regression.pkl")
+
+load_dotenv()
+uri=os.getenv("MONGO_DB_URI")
+print("URI:",uri)
 
 @app.route("/")
 def home():
