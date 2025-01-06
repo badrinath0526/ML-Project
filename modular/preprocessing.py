@@ -38,33 +38,6 @@ def load_and_clean_data():
 
     return df
 
-def preprocess_data(df):
-    # Dropping duplicates
-    df.drop_duplicates(inplace=True)
-    log_info("Dropped duplicates")
-
-    # Handling categorical features
-    df['smoking_history'] = df['smoking_history'].replace({
-        'never': 'never',
-        'ever': 'never',
-        'former': 'past',
-        'not current': 'past'
-    })
-
-    # Label encoding for categorical columns
-    le_gender = LabelEncoder()
-    le_smoking_history = LabelEncoder()
-
-    df['gender'] = le_gender.fit_transform(df['gender'])
-    df['smoking_history'] = le_smoking_history.fit_transform(df['smoking_history'])
-    log_info("Encoded categorical variables")
-
-    # Save label encoders
-    joblib.dump(le_gender, 'le_gender.pkl')
-    joblib.dump(le_smoking_history, 'le_smoking_history.pkl')
-
-    return df
-
 # Cleans data by dropping duplicates and encoding categorical variables
 def preprocess_data(df):
     # Dropping duplicates
@@ -88,8 +61,8 @@ def preprocess_data(df):
     log_info("Encoded categorical variables")
 
     # Save label encoders
-    joblib.dump(le_gender, 'le_gender.pkl')
-    joblib.dump(le_smoking_history, 'le_smoking_history.pkl')
+    # joblib.dump(le_gender, 'le_gender.pkl')
+    # joblib.dump(le_smoking_history, 'le_smoking_history.pkl')
 
     return df
 
