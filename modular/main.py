@@ -13,7 +13,7 @@ logging.getLogger("matplotlib.font_manager").setLevel(logging.WARNING)
 
 df = load_and_clean_data()
 df=preprocess_data(df)
-print(df.head())
+
 # perform_chi_square_test(df,target_col='diabetes')
 
 X, y = preprocess_features(df)

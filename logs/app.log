@@ -118,3 +118,17 @@
 2025-01-06 14:03:15 - Config.configuration - INFO - Hyperparameter tuning is completed after grid search finds the best parameters
 2025-01-06 14:03:16 - Config.configuration - INFO - Training accuracy is calculated
 2025-01-06 14:03:16 - Config.configuration - INFO - Model is evaluated with best parameters
+2025-01-06 14:13:34 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-06 14:13:34 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-06 14:13:34 - werkzeug - INFO -  * Restarting with stat
+2025-01-06 14:13:35 - werkzeug - WARNING -  * Debugger is active!
+2025-01-06 14:13:35 - werkzeug - INFO -  * Debugger PIN: 456-377-415
+2025-01-06 14:13:40 - modular.Config.configuration - INFO - Home page loaded
+2025-01-06 14:13:40 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:13:40] "GET / HTTP/1.1" 200 -
+2025-01-06 14:13:40 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:13:40] "GET /static/styles.css HTTP/1.1" 200 -
+2025-01-06 14:13:40 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:13:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-06 14:13:49 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:13:49] "POST /predict_diabetes HTTP/1.1" 200 -
+2025-01-06 14:13:49 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:13:49] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-01-06 14:14:00 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:14:00] "POST /predict_diabetes HTTP/1.1" 200 -
+2025-01-06 14:14:00 - werkzeug - INFO - 127.0.0.1 - - [06/Jan/2025 14:14:00] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
