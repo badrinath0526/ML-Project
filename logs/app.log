@@ -34,3 +34,87 @@
 2025-01-03 12:06:57 - modular.Config.configuration - INFO - Home page loaded
 2025-01-03 12:06:57 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:57] "GET / HTTP/1.1" 200 -
 2025-01-03 12:06:57 - werkzeug - INFO - 127.0.0.1 - - [03/Jan/2025 12:06:57] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-01-06 12:45:59 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-06 12:45:59 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-06 12:45:59 - matplotlib - DEBUG - interactive is False
+2025-01-06 12:45:59 - matplotlib - DEBUG - platform is linux
+2025-01-06 12:45:59 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-06 12:45:59 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-06 12:46:04 - Config.configuration - INFO - Dropped duplicates
+2025-01-06 12:46:04 - Config.configuration - INFO - Encoded categorical variables
+2025-01-06 12:46:04 - Config.configuration - INFO - Dropped unnecessary features
+2025-01-06 12:46:04 - Config.configuration - INFO - Split data into train and test
+2025-01-06 12:46:04 - Config.configuration - INFO - Split data into train and test
+2025-01-06 12:46:04 - matplotlib.pyplot - DEBUG - Loaded backend qtagg version 5.15.10.
+2025-01-06 12:46:04 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 12:46:04 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 13:00:04 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-06 13:00:04 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-06 13:00:04 - matplotlib - DEBUG - interactive is False
+2025-01-06 13:00:04 - matplotlib - DEBUG - platform is linux
+2025-01-06 13:00:04 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-06 13:00:04 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-06 13:01:15 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-06 13:01:15 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-06 13:01:15 - matplotlib - DEBUG - interactive is False
+2025-01-06 13:01:15 - matplotlib - DEBUG - platform is linux
+2025-01-06 13:01:15 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-06 13:01:15 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-06 13:01:19 - Config.configuration - INFO - Dropped duplicates
+2025-01-06 13:01:19 - Config.configuration - INFO - Encoded categorical variables
+2025-01-06 13:01:19 - Config.configuration - INFO - Dropped unnecessary features
+2025-01-06 13:01:19 - Config.configuration - INFO - Split data into train and test
+2025-01-06 13:01:19 - Config.configuration - INFO - Split data into train and test
+2025-01-06 13:01:19 - matplotlib.pyplot - DEBUG - Loaded backend qtagg version 5.15.10.
+2025-01-06 13:01:19 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 13:01:19 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 13:01:22 - Config.configuration - INFO - Count plot is visualized
+2025-01-06 13:01:22 - matplotlib.colorbar - DEBUG - locator: <matplotlib.ticker.AutoLocator object at 0x7bd09c160cd0>
+2025-01-06 13:01:50 - Config.configuration - INFO - Correlation matrix is visualized
+2025-01-06 13:01:54 - Config.configuration - INFO - Histplots are visualized
+2025-01-06 13:01:56 - Config.configuration - INFO - Box plot is visualized
+2025-01-06 13:02:10 - Config.configuration - INFO - Pairplot is visualized
+2025-01-06 13:02:10 - Config.configuration - INFO - Data sent into pipeline for training
+2025-01-06 13:03:24 - Config.configuration - INFO - Hyperparameter tuning is completed after grid search finds the best parameters
+2025-01-06 13:03:24 - Config.configuration - INFO - Training accuracy is calculated
+2025-01-06 13:03:24 - Config.configuration - INFO - Model is evaluated with best parameters
+2025-01-06 13:07:11 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-06 13:07:11 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-06 13:07:11 - matplotlib - DEBUG - interactive is False
+2025-01-06 13:07:11 - matplotlib - DEBUG - platform is linux
+2025-01-06 13:07:11 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-06 13:07:11 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-06 13:07:15 - Config.configuration - INFO - Dropped duplicates
+2025-01-06 13:07:15 - Config.configuration - INFO - Encoded categorical variables
+2025-01-06 13:07:15 - Config.configuration - INFO - Dropped unnecessary features
+2025-01-06 13:07:15 - Config.configuration - INFO - Split data into train and test
+2025-01-06 13:07:15 - Config.configuration - INFO - Split data into train and test
+2025-01-06 13:07:15 - matplotlib.pyplot - DEBUG - Loaded backend qtagg version 5.15.10.
+2025-01-06 13:07:15 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 13:07:15 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 13:07:17 - Config.configuration - INFO - Count plot is visualized
+2025-01-06 13:07:17 - matplotlib.colorbar - DEBUG - locator: <matplotlib.ticker.AutoLocator object at 0x7d8478674d90>
+2025-01-06 14:01:38 - matplotlib - DEBUG - matplotlib data path: /home/user/.local/lib/python3.10/site-packages/matplotlib/mpl-data
+2025-01-06 14:01:38 - matplotlib - DEBUG - CONFIGDIR=/home/user/.config/matplotlib
+2025-01-06 14:01:38 - matplotlib - DEBUG - interactive is False
+2025-01-06 14:01:38 - matplotlib - DEBUG - platform is linux
+2025-01-06 14:01:38 - matplotlib - DEBUG - CACHEDIR=/home/user/.cache/matplotlib
+2025-01-06 14:01:38 - matplotlib.font_manager - DEBUG - Using fontManager instance from /home/user/.cache/matplotlib/fontlist-v390.json
+2025-01-06 14:01:43 - Config.configuration - INFO - Dropped duplicates
+2025-01-06 14:01:43 - Config.configuration - INFO - Encoded categorical variables
+2025-01-06 14:01:43 - Config.configuration - INFO - Dropped unnecessary features
+2025-01-06 14:01:43 - Config.configuration - INFO - Split data into train and test
+2025-01-06 14:01:43 - Config.configuration - INFO - Split data into train and test
+2025-01-06 14:01:43 - matplotlib.pyplot - DEBUG - Loaded backend qtagg version 5.15.10.
+2025-01-06 14:01:43 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 14:01:43 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2025-01-06 14:01:45 - Config.configuration - INFO - Count plot is visualized
+2025-01-06 14:01:45 - matplotlib.colorbar - DEBUG - locator: <matplotlib.ticker.AutoLocator object at 0x726014088f70>
+2025-01-06 14:01:45 - Config.configuration - INFO - Correlation matrix is visualized
+2025-01-06 14:01:49 - Config.configuration - INFO - Histplots are visualized
+2025-01-06 14:01:50 - Config.configuration - INFO - Box plot is visualized
+2025-01-06 14:02:04 - Config.configuration - INFO - Pairplot is visualized
+2025-01-06 14:02:04 - Config.configuration - INFO - Data sent into pipeline for training
+2025-01-06 14:03:15 - Config.configuration - INFO - Hyperparameter tuning is completed after grid search finds the best parameters
+2025-01-06 14:03:16 - Config.configuration - INFO - Training accuracy is calculated
+2025-01-06 14:03:16 - Config.configuration - INFO - Model is evaluated with best parameters

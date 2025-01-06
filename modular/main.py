@@ -1,4 +1,4 @@
-from preprocessing import load_and_clean_data, preprocess_features, split_data,perform_chi_square_test
+from preprocessing import load_and_clean_data, preprocess_features, split_data,perform_chi_square_test,preprocess_data
 from plotting import plot_class_distribution, plot_correlation_matrix, plot_histograms, plot_boxplot,plot_pairplot
 from modeltraining import build_pipeline, grid_search_tuning, evaluate_model,save_model,calculate_training_accuracy,evaluate_roc_auc,perform_rfe
 import pandas as pd
@@ -11,9 +11,10 @@ import logging
 
 logging.getLogger("matplotlib.font_manager").setLevel(logging.WARNING)
 
-df = load_and_clean_data("data/diabetes_prediction_dataset.csv")
-
-    # perform_chi_square_test(df,target_col='diabetes')
+df = load_and_clean_data()
+df=preprocess_data(df)
+print(df.head())
+# perform_chi_square_test(df,target_col='diabetes')
 
 X, y = preprocess_features(df)
 
@@ -50,7 +51,7 @@ best_model = grid_search.best_estimator_
 
 evaluate_roc_auc(best_model, X_test, y_test)
 
-# save_model(grid_search)
+save_model(grid_search)
 
 #Regression model for generating continuous values and retraining to get risk percentage
 
